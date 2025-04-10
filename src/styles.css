@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Define hacker theme colors */
+  :root {
+    --background: #0a0a0a; /* Darker black */
+    --text: #00ff00; /* Bright green */
+    --primary: #00ff00; /* Use green as primary */
+    --surface: #1a1a1a; /* Slightly lighter black for surfaces */
+  }
+
+  body {
+    @apply bg-background text-text font-mono; /* Apply base colors and mono font */
+    /* Optional: Add a subtle scanline effect */
+    background-image: linear-gradient(
+      rgba(0, 255, 0, 0.05) 1px,
+      transparent 1px
+    ); /* Uncommented scanlines */
+    background-size: 100% 2px; /* Uncommented scanlines */
+  }
+
+  /* Range Input Styles - update thumb color */
+  input[type="range"] {
+    @apply appearance-none bg-transparent;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    @apply appearance-none w-4 h-4 rounded-none bg-primary border-2 border-background 
+           hover:border-primary/50 cursor-pointer transition-all; /* Use square thumb, thinner border */
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    @apply appearance-none w-4 h-4 rounded-none bg-primary border-2 border-background 
+           hover:border-primary/50 cursor-pointer transition-all; /* Use square thumb, thinner border */
+  }
+}
+
+@layer components {
+  .text-area {
+    @apply w-full p-4 bg-surface rounded-none border border-primary/50 
+           focus:outline-none focus:border-primary focus:bg-surface/80 transition-colors resize-y font-mono; /* Sharper corners, subtle focus bg */
+    height: auto;
+    overflow: auto;
+  }
+
+  .btn {
+    @apply px-4 py-1 rounded-none bg-transparent text-primary border border-primary 
+           font-bold hover:bg-primary hover:text-background transition-all active:scale-95 text-sm; /* Terminal-style button */
+  }
+
+  .neon-text {
+    /* Enhanced neon glow */
+    @apply text-primary drop-shadow-[0_0_5px_theme(colors.primary),_0_0_15px_theme(colors.primary),_0_0_25px_theme(colors.primary)/50];
+    /* Optional: Add subtle flicker animation */
+    animation: flicker 1.5s infinite alternate; /* Uncommented flicker */
+  }
+
+  .dictionary-item {
+    @apply flex items-center gap-2 p-2 rounded-none bg-transparent 
+           border border-primary/50 hover:border-primary hover:bg-primary/10 transition-all; /* Simpler item style */
+  }
+
+  .command-item {
+    @apply w-full flex items-center gap-2 px-2 py-1.5 rounded-none 
+           hover:bg-primary/10 transition-colors text-left;
+  }
+
+  .command-kbd {
+    @apply px-1.5 py-0.5 text-xs bg-surface rounded-none border border-primary/50 
+           font-mono text-text/80; /* Adjusted KBD style */
+  }
+
+  .command-group {
+    @apply py-1;
+  }
+
+  .command-group + .command-group {
+    @apply border-t border-primary/10;
+  }
+
+  #dictionaryPanel {
+    @apply transition-all duration-200 ease-in-out;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+
+  #dictionaryPanel.visible {
+    @apply animate-slide-down; /* Assuming animate-slide-down is defined in tailwind.config.js */
+    max-height: 1000px;
+    opacity: 1;
+  }
+
+  #outputSection {
+    @apply opacity-0 transition-opacity duration-200;
+  }
+
+  #outputSection.visible {
+    @apply opacity-100;
+  }
+
+  .delete-btn {
+    /* Keep red for delete, but adjust styling */
+    @apply opacity-0 group-hover:opacity-100 transition-opacity
+           text-red-500 hover:text-red-400 p-1 rounded-none
+           hover:bg-red-500/10;
+  }
+
+  #leetLevelIndicator {
+    transition: width 0.2s ease-out;
+  }
+
+  .leet-char {
+    @apply relative inline-block cursor-pointer transition-colors;
+  }
+
+  .leet-char:hover {
+    @apply text-primary brightness-125; /* Brighter hover */
+  }
+
+  .leet-char.reverted {
+    @apply text-primary/50 underline decoration-dotted underline-offset-4; /* Dimmer reverted */
+  }
+
+  .leet-char::before {
+    content: attr(data-original);
+    /* Hacker tooltip style */
+    @apply absolute -top-7 left-1/2 -translate-x-1/2 px-2 py-1 
+           bg-surface text-text text-xs rounded-none border border-primary/50
+           opacity-0 transition-opacity pointer-events-none whitespace-nowrap;
+  }
+
+  .leet-char:hover::before {
+    @apply opacity-100;
+  }
+
+  .output-container {
+    @apply relative font-mono; /* Already mono, ensure it stays */
+  }
+
+  .output-actions {
+    @apply absolute right-2 top-2 flex gap-2;
+  }
+
+  .output-toggle {
+    /* Adjust toggle style */
+    @apply text-xs text-text/60 hover:text-primary transition-colors cursor-pointer
+           bg-transparent px-2 py-1 rounded-none border border-primary/30 hover:border-primary/70;
+  }
+}
+
+/* Custom scrollbar - more minimal */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-surface/50; /* Less prominent track */
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/60 rounded-none hover:bg-primary/80; /* Square thumb */
+}
+
+/* Optional Flicker Animation */
+@keyframes flicker {
+  /* Uncommented flicker keyframes */
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
+    text-shadow: 0 0 4px theme(colors.primary), 0 0 11px theme(colors.primary),
+      0 0 19px theme(colors.primary) / 50;
+    opacity: 1;
+  }
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+    opacity: 0.8;
+  }
+}

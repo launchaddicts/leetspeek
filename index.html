@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title class="js-translatable" data-plain="LeetSpeek Converter">
+      L33tSp33k C0nv3rt3r
+    </title>
+    <meta
+      name="description"
+      content="C0nv3rt y0ur t3xt t0 l33tsp33k w1th th1s m0d3rn c0nv3rt3r"
+      class="js-translatable"
+      data-plain="Convert your text to leetspeek with this modern converter"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body class="bg-background text-text min-h-screen flex flex-col font-mono">
+    <!-- Header -->
+    <header
+      class="border-b border-primary/20 backdrop-blur-sm sticky top-0 z-50"
+    >
+      <div
+        class="container mx-auto px-4 py-4 flex justify-between items-center"
+      >
+        <h1 class="text-2xl font-bold neon-text">L33tSp33k</h1>
+        <div class="flex gap-4 items-center">
+          <!-- Global Leet Toggle -->
+          <label
+            for="globalLeetToggle"
+            class="flex items-center cursor-pointer text-sm"
+          >
+            <span class="mr-2 text-text/60">ENG</span>
+            <div class="relative">
+              <input
+                type="checkbox"
+                id="globalLeetToggle"
+                class="sr-only peer"
+              />
+              <div
+                class="block bg-surface w-10 h-5 rounded-full border border-primary/50"
+              ></div>
+              <div
+                class="dot absolute left-1 top-0.5 bg-primary w-4 h-4 rounded-full transition-transform peer-checked:translate-x-full"
+              ></div>
+            </div>
+            <span
+              class="ml-2 text-primary font-bold js-translatable"
+              data-plain="L33T"
+              >L33T</span
+            >
+          </label>
+          <button
+            id="aboutBtn"
+            class="btn js-translatable"
+            data-plain="// ABOUT //"
+          >
+            // ABOUT //
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Ad Space -->
+    <div class="bg-surface border-t border-primary/20">
+      <div class="container mx-auto px-4 py-3 text-center">
+        <p
+          class="text-sm text-text/60 js-translatable"
+          data-plain="// Ad Space //"
+        >
+          // Ad Space //
+        </p>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 flex-1">
+      <div class="max-w-3xl mx-auto space-y-8">
+        <!-- Input Section -->
+        <textarea
+          id="inputText"
+          class="text-area w-full"
+          placeholder="> Enter plain text... (Press ⌘K for dictionary config)"
+          data-leet-placeholder="> Enter plain text... (Press ⌘K for d1ct10n4ry c0nf1g)"
+          data-plain-placeholder="> Enter plain text... (Press ⌘K for dictionary config)"
+        ></textarea>
+
+        <!-- Output Section -->
+        <div id="outputSection">
+          <div class="flex justify-between items-center mb-4">
+            <label
+              class="block text-lg font-medium js-translatable"
+              data-plain="// LeetSpeek Output //"
+              >// L33tSp33k Output //</label
+            >
+            <div class="flex gap-2">
+              <button
+                id="toggleLeetBtn"
+                class="btn p-2"
+                title="Toggle Leet/Plain"
+                data-leet-title="Show Pl41n T3xt"
+                data-plain-title="Show Plain Text"
+                data-leet-title-alt="Show L33tSp33k"
+                data-plain-title-alt="Show LeetSpeek"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+                  />
+                </svg>
+              </button>
+              <button
+                id="copyBtn"
+                class="btn p-2 js-translatable"
+                title="Copy Output"
+                data-plain="Copy Output"
+                data-plain-copied="Copied!"
+                data-leet-copied="C0p13d!"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div id="outputText" class="text-area w-full output-container">
+            <pre
+              id="output-text"
+              class="mt-2 h-[200px] min-h-[200px] w-full whitespace-pre-wrap rounded-md bg-background p-4 font-mono text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              data-plain="// LeetSpeek Output //"
+            >
+// L33tSp33k 0utput //
+            </pre>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Command Palette Modal -->
+    <div
+      id="commandPalette"
+      class="fixed inset-0 bg-background/80 backdrop-blur-sm hidden items-start justify-center pt-[10vh] z-50"
+    >
+      <div class="container max-w-2xl mx-auto px-4">
+        <div class="bg-surface rounded-none shadow-xl border border-primary/50">
+          <!-- Search Bar -->
+          <div class="p-4 border-b border-primary/20">
+            <input
+              type="text"
+              id="commandInput"
+              class="w-full bg-transparent border-none outline-none text-lg font-mono"
+              placeholder="> Search dictionary or commands..."
+              data-leet-placeholder="> Search d1ct10n4ry or c0mm4nds..."
+              data-plain-placeholder="> Search dictionary or commands..."
+            />
+          </div>
+
+          <!-- Dictionary Section -->
+          <div class="p-4 border-b border-primary/20">
+            <div class="flex justify-between items-center mb-4">
+              <h2
+                class="text-lg font-medium js-translatable"
+                data-plain="// Leet Dictionary Config //"
+              >
+                // L33t D1ct10n4ry C0nf1g //
+              </h2>
+            </div>
+
+            <!-- Leet Level Selector -->
+            <div class="space-y-2 mb-4">
+              <div class="flex justify-between items-center">
+                <label
+                  class="text-sm font-medium text-text/60 js-translatable"
+                  data-plain="// Leet Lvl //"
+                  >// L33t Lvl //</label
+                >
+                <span
+                  id="leetLevelLabel"
+                  class="text-sm font-medium text-primary js-translatable"
+                  data-mild-plain="Mild"
+                  data-moderate-plain="Moderate"
+                  data-extreme-plain="Extreme"
+                  data-mild-leet="M1ld"
+                  data-moderate-leet="M0d3r4t3"
+                  data-extreme-leet="3xtr3m3"
+                ></span>
+              </div>
+              <div class="flex gap-2">
+                <button
+                  id="mildLevel"
+                  class="flex-1 p-2 rounded-none border border-primary/50 hover:bg-primary/10 transition-colors text-sm js-translatable"
+                  data-level="mild"
+                  data-plain="Mild"
+                >
+                  M1ld
+                </button>
+                <button
+                  id="moderateLevel"
+                  class="flex-1 p-2 rounded-none border border-primary/50 hover:bg-primary/10 transition-colors text-sm js-translatable"
+                  data-level="moderate"
+                  data-plain="Moderate"
+                >
+                  M0d3r4t3
+                </button>
+                <button
+                  id="extremeLevel"
+                  class="flex-1 p-2 rounded-none border border-primary/50 hover:bg-primary/10 transition-colors text-sm js-translatable"
+                  data-level="extreme"
+                  data-plain="Extreme"
+                >
+                  3xtr3m3
+                </button>
+              </div>
+            </div>
+
+            <!-- Dictionary Container -->
+            <div
+              id="dictionaryContainer"
+              class="grid grid-cols-2 md:grid-cols-4 gap-4 max-h-[40vh] overflow-y-auto pr-2"
+            >
+              <!-- Dictionary items will be inserted here -->
+            </div>
+          </div>
+
+          <!-- Quick Commands -->
+          <div class="p-2">
+            <div
+              class="px-2 py-1.5 text-sm text-text/60 js-translatable"
+              data-plain="// Quick Commands //"
+            >
+              // Qu1ck C0mm4nds //
+            </div>
+            <button class="command-item" data-command="add-letter">
+              <span
+                class="flex-1 js-translatable"
+                data-plain="Add Letter/Symbol"
+                >Add L3tt3r/Symb0l</span
+              >
+              <kbd class="command-kbd">⌘/</kbd>
+            </button>
+            <button class="command-item" data-command="reset-dictionary">
+              <span class="flex-1 js-translatable" data-plain="Reset Dictionary"
+                >R3s3t D1ct10n4ry</span
+              >
+              <kbd class="command-kbd">⌘⇧R</kbd>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Letter Modal -->
+    <div
+      id="addLetterModal"
+      class="fixed inset-0 bg-background/80 backdrop-blur-sm hidden items-center justify-center z-50"
+    >
+      <div
+        class="bg-surface p-6 rounded-none max-w-md mx-4 border border-primary/50"
+      >
+        <h2
+          class="text-xl font-bold mb-4 js-translatable"
+          data-plain="// Add Character //"
+        >
+          // Add Ch4r4ct3r //
+        </h2>
+        <div class="space-y-4">
+          <div class="space-y-2">
+            <input
+              type="text"
+              id="newLetter"
+              maxlength="1"
+              class="w-full p-2 bg-transparent border border-primary/50 rounded-none focus:outline-none focus:border-primary text-center text-xl font-mono"
+              placeholder="> Type letter/symbol"
+              data-leet-placeholder="> Type l3tt3r/symb0l"
+              data-plain-placeholder="> Type letter/symbol"
+            />
+          </div>
+          <div class="flex gap-2">
+            <button
+              id="confirmAddLetter"
+              class="btn flex-1 js-translatable"
+              data-plain="// Add //"
+            >
+              // Add //
+            </button>
+            <button
+              id="cancelAddLetter"
+              class="btn flex-1 bg-transparent text-primary border border-primary/50 hover:bg-primary/10 js-translatable"
+              data-plain="// Cancel //"
+            >
+              // C4nc3l //
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Modal -->
+    <div
+      id="aboutModal"
+      class="fixed inset-0 bg-background/80 backdrop-blur-sm hidden items-center justify-center z-50"
+    >
+      <div
+        class="bg-surface p-6 rounded-none max-w-md mx-4 border border-primary/50"
+      >
+        <h2
+          class="text-xl font-bold mb-4 js-translatable"
+          data-plain="// About LeetSpeek Converter //"
+        >
+          // Ab0ut L33tSp33k C0nv3rt3r //
+        </h2>
+        <p
+          class="mb-4 text-text/80 js-translatable"
+          data-plain="Convert your text into leetspeek with this modern converter. Customize your own leet dictionary and create unique text transformations.<br/><br/>Press <kbd class='command-kbd'>⌘K</kbd> to open the dictionary editor."
+        >
+          C0nv3rt y0ur t3xt 1nt0 l33tsp33k w1th th1s m0d3rn c0nv3rt3r. Cust0m1z3
+          y0ur 0wn l33t d1ct10nary and cr3at3 un1qu3 t3xt transf0rmat10ns.
+          <br /><br />
+          Pr3ss
+          <kbd class="command-kbd">⌘K</kbd>
+          t0 0p3n th3 d1ct10nary 3d1t0r.
+        </p>
+        <button
+          id="closeAboutBtn"
+          class="btn w-full js-translatable"
+          data-plain="// Close //"
+        >
+          // Cl0s3 //
+        </button>
+      </div>
+    </div>
+
+    <!-- Launchaddict Badge -->
+    <a
+      href="https://twitter.com/launchaddict"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="fixed bottom-4 left-4 flex items-center gap-2 px-3 py-2 bg-surface/90 backdrop-blur-sm rounded-full border border-primary/20 hover:border-primary/50 transition-all group z-50"
+    >
+      <!-- Twitter SVG Logo -->
+      <svg
+        class="w-4 h-4 text-primary"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.32 4.513 2.09 7.14 2.09 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"
+        />
+      </svg>
+      <span
+        class="text-sm text-text/60 group-hover:text-primary transition-colors js-translatable"
+        data-plain="// by @launchaddict //"
+        >// by @l4unch4dd1ct //</span
+      >
+    </a>
+
+    <!-- Contribute on GitHub Badge -->
+    <a
+      id="githubLink"
+      href="#"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="fixed bottom-4 right-4 flex items-center gap-2 px-3 py-2 bg-surface/90 backdrop-blur-sm rounded-full border border-primary/20 hover:border-primary/50 transition-all group z-50"
+    >
+      <!-- Replace with your actual repo URL -->
+      <!-- You can add a GitHub icon here if you like -->
+      <svg
+        class="w-4 h-4 text-primary"
+        viewBox="0 0 16 16"
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+        />
+      </svg>
+      <span
+        class="text-sm text-text/60 group-hover:text-primary transition-colors js-translatable"
+        data-plain="// Contribute on GitHub //"
+        >// C0ntr1but3 0n G1tHub //</span
+      >
+    </a>
+  </body>
+</html>
