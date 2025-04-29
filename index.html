@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-YPYQ9Y6C77"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-YPYQ9Y6C77");
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title class="js-translatable" data-plain="LeetSpeek Converter">
@@ -79,7 +93,7 @@
         <!-- Input Section -->
         <textarea
           id="inputText"
-          class="text-area w-full"
+          class="text-area w-full min-h-[150px]"
           placeholder="> Enter plain text... (Press ⌘K for dictionary config)"
           data-leet-placeholder="> Enter plain text... (Press ⌘K for d1ct10n4ry c0nf1g)"
           data-plain-placeholder="> Enter plain text... (Press ⌘K for dictionary config)"
@@ -369,7 +383,7 @@
         />
       </svg>
       <span
-        class="text-sm text-text/60 group-hover:text-primary transition-colors js-translatable"
+        class="text-sm text-text/60 group-hover:text-primary transition-colors js-translatable hidden sm:inline"
         data-plain="// by @launchaddict //"
         >// by @l4unch4dd1ct //</span
       >
@@ -399,8 +413,18 @@
       <span
         class="text-sm text-text/60 group-hover:text-primary transition-colors js-translatable"
         data-plain="// Contribute on GitHub //"
-        >// C0ntr1but3 0n G1tHub //</span
+        data-leet="// C0ntr1but3 0n G1tHub //"
       >
+        <span data-plain="// Contribute " data-leet="// C0ntr1but3 "
+          >// Contribute
+        </span>
+        <span
+          class="hidden sm:inline"
+          data-plain="on GitHub //"
+          data-leet="0n G1tHub //"
+          >on GitHub //</span
+        >
+      </span>
     </a>
   </body>
 </html>
